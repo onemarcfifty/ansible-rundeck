@@ -1,0 +1,31 @@
+---
+
+# ##############################################
+# Some samples how to use ansible on Windows 
+# targets see here for documentation:
+# https://docs.ansible.com/ansible/latest/user_guide/windows_winrm.html
+# ##############################################
+
+  - name: Some Windows Tests
+    hosts: all
+    become: false
+    gather_facts: true
+    tasks:
+
+    - name: send message to users
+      win_msg:
+        msg: "hello from Ansible !"
+        update_cache: yes
+
+    - name: Print all available facts
+      ansible.builtin.debug:
+        var: ansible_facts
+
+    - name: Speech Test
+      win_say:
+        start_sound_path: C:\Windows\Media\Windows Balloon.wav
+        msg: "Nur ein Test für die Sprachausgabe"
+        end_sound_path: C:\Windows\Media\chimes.wav
+
+    - name: Get whoami information
+      win_whoami:

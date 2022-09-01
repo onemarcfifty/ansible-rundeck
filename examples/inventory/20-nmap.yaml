@@ -1,0 +1,5 @@
+plugin: community.general.nmap
+strict: False
+address: 192.168.1.0/24
+sudo: yes
+cache: yes

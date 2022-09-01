@@ -1,0 +1,14 @@
+plugin: constructed
+strict: False
+
+groups:
+  Routers: "'router' in inventory_hostname"
+  sandbox: "'sandbox' in inventory_hostname"
+  nmap: "ports is defined"
+  Dropbear: "'archerc7' in inventory_hostname"
+  nopython: "'archerc7' in inventory_hostname"
+  Servers: "'pve' in inventory_hostname"
+  kodi: "'kodi' in inventory_hostname"
+  Windows: "'win' in inventory_hostname"
+  
+  

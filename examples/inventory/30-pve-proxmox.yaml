@@ -1,0 +1,9 @@
+plugin: community.general.proxmox
+url: https://yourproxmoxserver:8006
+user: api@pve
+token_id: apitoken
+token_secret: YOUR-API-TOKEN-SECRET-HERE
+want_facts: true
+want_proxmox_nodes_ansible_host: true
+#compose:
+#  ansible_host: proxmox_ipconfig0.ip | default(proxmox_net0.ip) | ipaddr('address')

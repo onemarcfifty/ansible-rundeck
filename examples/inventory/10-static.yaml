@@ -1,0 +1,42 @@
+all:
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    ansible_connection: ssh
+    ansible_user: ansiblessh
+  hosts:
+  children:
+    Windows:
+      hosts:
+        sampleWindowsHost:
+      vars:
+        ansible_user: "ansibleWin"
+        ansible_password: {{ansibleWinPassword}}
+        ansible_connection: winrm
+        ansible_winrm_transport: credssp
+        ansible_winrm_server_cert_validation: ignore
+    Dropbear:
+      vars:
+        ansible_user: root
+    Routers:
+      hosts:
+        sampleOpenWrtRouter:
+          ansible_host: 192.168.1.1 
+      vars:
+        ansible_user: root
+    nopython:
+      vars:
+        ansible_python_interpreter: /usr/bin/false
+    cloud:
+      hosts:
+        sampleCloudHost:
+          ansible_host: sdsgfdaflhksh.online-server.cloud
+        sampleCloudHost2: 
+          ansible_host: v6823468956489275648763.happysrv.de
+      vars:
+          ansible_user: ansiblessh
+          ansible_port: 4444
+    rundeckhost:
+      hosts:
+        rundeck: 
+      vars:
+        ansible_connection: local

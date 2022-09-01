@@ -1,0 +1,42 @@
+---
+
+# ##############################################
+# this is a playbook I use in order to lock down
+# ssh access, i.e. disable root login and
+# force ssh key usage for everyone else
+# ##############################################
+
+
+  - name: disable password auth
+    hosts: all
+    become: true
+    gather_facts: false
+        
+    tasks:
+
+    - name: Disable Password Authentication
+      lineinfile:
+           dest=/etc/ssh/sshd_config
+           regexp='^PasswordAuthentication'
+           line="PasswordAuthentication no"
+           state=present
+           backup=yes
+      notify:
+       - restart ssh
+ 
+    - name: Disable Root Login
+      lineinfile:
+           dest=/etc/ssh/sshd_config
+           regexp='^PermitRootLogin'
+           line="PermitRootLogin no"
+           state=present
+           backup=yes
+      notify:
+       - restart ssh
+ 
+    handlers:
+    - name: restart ssh
+      service:
+       name=sshd
+       state=restarted
+

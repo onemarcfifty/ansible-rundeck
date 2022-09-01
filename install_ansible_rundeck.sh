@@ -14,7 +14,7 @@ USERPASSWORD=onemarcfifty
 
 apt update
 apt -y upgrade
-apt install -y python3 pip sudo wget curl
+apt install -y python3 pip sudo wget curl git nmap
 
 # now let's add the rundeck user
 

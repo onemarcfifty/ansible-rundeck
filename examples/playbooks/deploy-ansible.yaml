@@ -1,0 +1,61 @@
+---
+
+# ##############################################
+# this is a playbook I use in order to deploy
+# ansible to target nodes.
+# ##############################################
+
+
+# ##############################################
+# first we use a raw ssh connection in order to 
+# install python3
+# so that we can use ansible modules for the
+# next steps
+# ##############################################
+
+  - name: make sure python is installed
+    hosts: all
+    gather_facts: false
+    become: false
+
+    tasks:
+    - name: Install python3
+      raw: "apt update && apt install python3"
+
+# ##############################################
+# Now we can - still as root or whatever user
+# we use for the first connection - do the 
+# following tasks with ansible already.
+# the variables for this are defined in rundeck.
+# ##############################################
+
+
+  - name: set up user and ssh environment
+    hosts: all
+    gather_facts: false
+    become: true
+
+    tasks:
+
+    - name: Install sudo apt on debianish hosts
+      apt:
+        name: sudo
+        update_cache: yes
+#      when: "'debian' in group_names"
+ 
+    - name: Add a new user named ansiblessh
+      user:
+          name=ansiblessh
+          password={{ ansiblessh_password }}
+ 
+    - name: Add ansiblessh user to the sudoers
+      copy:
+          dest:    "/etc/sudoers.d/ansiblessh"
+          content: "ansiblessh  ALL=(ALL)  NOPASSWD: ALL"
+ 
+    - name: Deploy SSH Key
+      authorized_key: user=ansiblessh
+                      key="{{ lookup('id_rsa', '/var/lib/rundeck/.ssh') }}"
+                      state=present
+ 
+ 

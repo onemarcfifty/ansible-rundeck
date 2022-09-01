@@ -1,0 +1,21 @@
+plugin: community.zabbix.zabbix_inventory
+server_url: http://yourzabbixserver/zabbix
+login_user: api
+login_password: YOUR-ZABBIX-API-PASSWORD-HERE
+host_zapi_query:
+  selectApplications: ['name', 'applicationid']
+  selectParentTemplates: ['name']
+  selectGroups: ['name']
+validate_certs: false
+groups:
+  zbx_enabled: zbx_status == "0"
+  zbx_disabled: zbx_status == "1"
+  Debian: "'ansible.Debian' in (zbx_groups | join)"
+  zbx_Ansible: "'ansible' in (zbx_groups | join)"
+  NoAnsible: "'ansible' not in (zbx_groups | join)"
+  Dropbear: "'ansible.Dropbear' in (zbx_groups | join)"
+  nopython: "'ansible.NoPython' in (zbx_groups | join)"
+  Routers: "'ansible.Routers' in (zbx_groups | join)"
+  MultiMedia: "'Multimedia' in (zbx_groups | join)"
+  kodi: "'Kodi' in (zbx_groups | join)"
+
