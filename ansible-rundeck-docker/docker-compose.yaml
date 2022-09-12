@@ -5,10 +5,23 @@ version: '3'
 services:
 
     rundeck:
-        build: .
+        build:
+            context: .
         container_name: rundeck
         restart: on-failure:5
-        environment:
-            RUNDECK_GRAILS_URL: http://127.0.0.1:4440
+        links:
+            - mariadb
+        depends_on:
+            - mariadb
+        env_file:
+            .env
         ports:
             - 4440:4440
+            - 8080:8080
+    mariadb:
+        image: mariadb:10.5.8
+        container_name: mariadb
+        restart: on-failure:5
+        env_file:
+            .env
+

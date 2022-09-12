@@ -46,7 +46,7 @@
     - name: Add a new user named ansiblessh
       user:
           name=ansiblessh
-          password={{ ansiblessh_password }}
+          password={{ ansible_user_password }}
  
     - name: Add ansiblessh user to the sudoers
       copy:
