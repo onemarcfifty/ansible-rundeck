@@ -29,6 +29,12 @@ RUN echo 'export PASSWORD=$VSCODE_PASSWORD' >docker-lib/includes/120_vscode.sh
 RUN echo 'pidof node || /usr/bin/code-server --host 0.0.0.0 &' >>docker-lib/includes/120_vscode.sh
 RUN chmod 755 docker-lib/includes/120_vscode.sh
 
+# make sure we can write to the ansible volume
+RUN echo 'sudo chown rundeck:root ansible' >docker-lib/includes/110_volume.sh
+RUN echo '/bin/touch ~/ansible/ansible.cfg' >>docker-lib/includes/110_volume.sh
+RUN if [ ! -e ~/.ansible.cfg ] ; then ln -s ~/ansible/ansible.cfg ~.ansible.cfg ; fi
+RUN chmod 755 docker-lib/includes/110_volume.sh
+
 #VOLUME ["/home/rundeck/server/data"]
 
 #EXPOSE 4440

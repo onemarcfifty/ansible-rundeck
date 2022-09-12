@@ -18,10 +18,16 @@ services:
         ports:
             - 4440:4440
             - 8080:8080
+        volumes:
+            - ansible-data:/home/rundeck/ansible
     mariadb:
         image: mariadb:10.5.8
         container_name: mariadb
         restart: on-failure:5
         env_file:
             .env
-
+        volumes:
+            - mariadb-data:/var/lib/mysql
+volumes:
+  mariadb-data:
+  ansible-data:
