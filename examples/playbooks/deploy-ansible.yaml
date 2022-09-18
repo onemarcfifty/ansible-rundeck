@@ -53,9 +53,12 @@
           dest:    "/etc/sudoers.d/ansiblessh"
           content: "ansiblessh  ALL=(ALL)  NOPASSWD: ALL"
  
+# now we deploy the ssh key. For this we just copy the id_rsa.pub file
+# to the host
+
     - name: Deploy SSH Key
       authorized_key: user=ansiblessh
-                      key="{{ lookup('id_rsa', '/var/lib/rundeck/.ssh') }}"
+                      key="{{ lookup('file', '/var/lib/rundeck/.ssh/id_rsa.pub') }}"
                       state=present
  
  
