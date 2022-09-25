@@ -8,6 +8,7 @@ services:
         build:
             context: .
         container_name: rundeck
+        hostname: rundeck
         restart: on-failure:5
         links:
             - mariadb
@@ -20,6 +21,8 @@ services:
             - 8080:8080
         volumes:
             - ansible-data:/home/rundeck/ansible
+         networks:
+            - db-net
     mariadb:
         image: mariadb:10.5.8
         container_name: mariadb
@@ -28,6 +31,10 @@ services:
             .env
         volumes:
             - mariadb-data:/var/lib/mysql
+        networks:
+            - db-net
 volumes:
   mariadb-data:
   ansible-data:
+networks:
+  db-net:
