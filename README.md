@@ -47,7 +47,7 @@ My scripts also install a server version of vscode on the rundeck server. So wit
 
 ## Creating an ansible inventory
 
-There are a couple of examples in the **examples** subdirectory. I suggest you create an `ansible` subdirectory under the user's home (there is already a hidden `.ansible` folder which we can ignore). In the Docker version, the ~/ansible directory is mapped to a named volume. The ansible config file should reside in `~/.ansible.cfg` ("~" stands for the rundeck user's home directory). In the docker version there is a symlink from `~/.ansible.cfg` to `~/ansible/ansible.cfg` in order to have the config file in the persistent volume if ever you need to recreate the container.
+There are a couple of examples in the **examples** subdirectory. I suggest you create an `ansible` subdirectory under the user's home (there is already a hidden `.ansible` folder which we can ignore). In the Docker version, the `~/ansible` directory is mapped to a named volume. The ansible config file should reside in `~/.ansible.cfg` ("~" stands for the rundeck user's home directory). In the docker version there is a symlink from `~/.ansible.cfg` to `~/ansible/ansible.cfg` in order to have the config file in the persistent volume if ever you need to recreate the container.
 
 ### inventory defaults
 
