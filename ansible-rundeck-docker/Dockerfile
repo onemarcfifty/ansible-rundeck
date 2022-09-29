@@ -16,7 +16,7 @@ RUN apt-get -y update && \
         git \
         nmap \
         sshpass
-
+RUN apt-get clean
 # let's install ansible using pip as root
 # this will give a fat red warning at runtime but is intended this way.
 RUN pip install --upgrade pip
@@ -26,7 +26,7 @@ RUN pip install ansible
 # and install it with apt
 RUN wget https://github.com/coder/code-server/releases/download/v4.6.0/code-server_4.6.0_amd64.deb
 RUN apt -y install ./code-server_4.6.0_amd64.deb
-
+RUN apt-get clean
 # for compatibility with the non-docker version we just link the
 # /var/lib/rundeck directory to the /home/rundeck directory
 RUN ln -s /home/rundeck /var/lib/rundeck
