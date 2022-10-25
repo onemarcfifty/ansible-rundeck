@@ -21,6 +21,11 @@ apt install -y python3 pip sudo wget curl git nmap
 useradd -m -G sudo -s /bin/bash rundeck
 echo "rundeck:$USERPASSWORD" | chpasswd
 
+# Quick fix: allow sudo to the rundeck user without password
+# (needs review) 
+
+echo "rundeck  ALL=(ALL)  NOPASSWD: ALL" >/etc/sudoers.d/rundeck 
+
 # install ansible through pip
 
 pip install ansible
