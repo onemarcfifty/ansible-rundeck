@@ -21,7 +21,7 @@ services:
             - 8080:8080
         volumes:
             - ansible-data:/home/rundeck/ansible
-         networks:
+        networks:
             - db-net
     mariadb:
         image: mariadb:10.5.8
