@@ -21,6 +21,7 @@ services:
             - 8080:8080
         volumes:
             - ansible-data:/home/rundeck/ansible
+            - rundeck-data:/home/rundeck/server/data
         networks:
             - db-net
     mariadb:
@@ -36,5 +37,6 @@ services:
 volumes:
   mariadb-data:
   ansible-data:
+  rundeck-data:
 networks:
   db-net:
