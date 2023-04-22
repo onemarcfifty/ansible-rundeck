@@ -14,7 +14,7 @@ Rundeck answers on port 4440
 
 For security you would want to hide things behind an NGINX or the like.
 
-## default logins
+## Default logins
 
 The default logins/passwords are as follows:
 
@@ -41,7 +41,7 @@ If you want to use the Docker version then just grab the files from the ansible-
 
 The rundeck user's home directory in the docker version is **/home/rundeck**
 
-## vscode server
+## VS code server
 
 My scripts also install a server version of vscode on the rundeck server. So with this you can use a web browser version of Visual Studio code directly in a browser from your workstation. The advantage of this is that you run the editor on the rundeck / ansible server and you can add all the nice vscode plugins here. Furthermore, the web version of vscode can be used to create, move, copy and delete files on the server without any need for ssh, FileZilla, Winscp or the like. If you need a shell then you can also open that directly in the browser in the Terminal menu. Just be advised that this has not been optimized for security in any way. You might want to hide it behind an NGINx for example.
 
@@ -49,7 +49,7 @@ My scripts also install a server version of vscode on the rundeck server. So wit
 
 There are a couple of examples in the **examples** subdirectory. I suggest you create an `ansible` subdirectory under the user's home (there is already a hidden `.ansible` folder which we can ignore). In the Docker version, the `~/ansible` directory is mapped to a named volume. The ansible config file should reside in `~/.ansible.cfg` ("~" stands for the rundeck user's home directory). In the docker version there is a symlink from `~/.ansible.cfg` to `~/ansible/ansible.cfg` in order to have the config file in the persistent volume if ever you need to recreate the container.
 
-### inventory defaults
+### Inventory defaults
 
 I suggest pointing the inventory to a subdirectory rather than a file. This way you may use multiple plugins for inventories. So at a minimum you would create the following subdirectories:
 
@@ -62,7 +62,7 @@ and then create the following minimum ~/.ansible.cfg:
     inventory=~/ansible/inventory
 
 
-### inventory examples
+### Inventory examples
 
 Now you can use the example inventory files by just copying them over to to ~/ansible/inventory. The following files are included in the examples:
 
@@ -74,7 +74,12 @@ Now you can use the example inventory files by just copying them over to to ~/an
 | 50-zabbix_inventory.yaml | uses the zabbix inventory for ansible               |
 | 99-construct.yaml        | dispatches nodes to groups                          |
 
-### adding the inventory to rundeck
+### Adding the inventory to rundeck
 
 Rundeck can use the Ansible inventory. When you first log into rundeck and you create a new project then rundeck wants to know is where to get the nodes from. Click on “add a new node source” and use the Ansible Resource Model Source. Under “Jobs” – “create a new job” you can now create a job. Under the Workflow section specify the Refresh Project Nodes Type under Workflow steps. When you now run this job then rundeck will query the ansible inventory and update the nodes accordingly. If you use nmap to create the inventory then this may take a while as the network will need to be scanned. You can now verify if the nodes have been added by checking in to the nodes section.
 
+## Watch the video on YouTube
+
+We will walk through the Installation and Usage in [this video](https://www.youtube.com/watch?v=Vt2hDEONSUs) on my YouTube Channel
+
+[![Video](https://www.onemarcfifty.com/assets/images/thumbnails/Vt2hDEONSUs.jpg)](https://www.youtube.com/watch?v=Vt2hDEONSUs)
